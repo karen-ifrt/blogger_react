@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Post from './Post'
 
 
 class HomePage extends Component {
@@ -15,19 +16,16 @@ class HomePage extends Component {
         }
     }
     render() {
-        let posts = this.state.posts.map((element) => 
-                <Link className="article" to="/post">
-                    <h2>{element.title}</h2>
-                    <p>{element.description}</p>
-                </Link>
+        let posts = this.state.posts.map((element, key) =>
+            <Post key={key} title={element.title} description={element.description} />
         )
 
         return (
-        <div>
-                <h5>Home Page</h5>
-                {posts}
-                <Link to="/post">Page post</Link>
-        </div>
+            <div>
+                <div className="container articles-container">
+                    {posts}
+                </div>
+            </div>
         )
     }
 
