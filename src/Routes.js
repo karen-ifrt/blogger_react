@@ -11,7 +11,7 @@ const Routes = () => (
         <div>
             <Header/>
             <Route exact path="/" component={HomePage} />
-            <Route path="/post" component={PostPage} />
+            <Route path="/post/:id" component={PostPage} />
         </div>
     </Router>
 )

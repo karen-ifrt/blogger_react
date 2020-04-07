@@ -7,10 +7,7 @@ class PostPage extends Component {
         super()
 
         this.state = {
-            post: {
-                title: 'Mon post',
-                description: 'Ma description'
-            },
+            post: {},
             comments: [
                 {
                     email: 'johndoe@gmail.com',
@@ -27,17 +24,32 @@ class PostPage extends Component {
             ]
         }
     }
+
+    componentDidMount() {
+        let id = this.props.match.params.id
+        
+        fetch('https://jsonplaceholder.typicode.com/posts/'+id)
+            .then((response) => response.json())
+            .then((response) => this.setState({ post: response })
+        )
+
+        fetch('https://jsonplaceholder.typicode.com/posts/'+id+'/comments')
+            .then((response) => response.json())
+            .then((response) => this.setState({ comments: response })
+        )
+    }
+
     render() {
 
         let comments = this.state.comments.map((element, key) => 
-            <Comment key={key} email={element.email} content={element.content} src={profileImage}/>
+            <Comment key={key} email={element.email} content={element.body} src={profileImage}/>
         )
 
         return (
             <div className="container post-container">
                 <div className="post">
                     <h2>{this.state.post.title}</h2>
-                    <p>{this.state.post.description}</p>
+                    <p>{this.state.post.body}</p>
                 </div>
                 <div className="comments-container">
                     <h2 className="comments-title">Commentaires</h2>
